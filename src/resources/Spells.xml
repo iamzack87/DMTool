@@ -1,0 +1,16 @@
+<Spells>
+  <Spell>
+    <Name>Fireball</Name>
+    <School>Evocation</School>
+    <Subschool>-</Subschool>
+    <Level>Sor/Wiz 3</Level>
+    <Components>V, S, M</Components>
+    <CastingTime>1 standard action</CastingTime>
+    <Range>Long</Range>
+    <Effect>FIREBALL</Effect>
+    <Duration>Instantaneous</Duration>
+    <SavingThrow>Yes</SavingThrow>
+    <SpellResistance>Yes</SpellResistance>
+    <Description>A fireball spell is an explosion of flame that detonates with a low roar and deals 1d6 points of fire damage per caster level (maximum 10d6) to every creature within the area. Unattended objects also take this damage. The explosion creates almost no pressure.</Description>
+  </Spell>
+</Spells>

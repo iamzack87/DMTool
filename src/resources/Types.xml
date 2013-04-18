@@ -1,0 +1,35 @@
+<Types>
+  <Type>
+    <Name>Undead
+</Name>
+    <Desc>zombies duh</Desc>
+    <HD>8</HD>
+    <BAB>good</BAB>
+    <Fort>good</Fort>
+    <Ref>good</Ref>
+    <Will>good</Will>
+    <SkillPoints>8</SkillPoints>
+  </Type>
+  <Type>
+    <Name>Dragon
+</Name>
+    <Desc>OOOOH</Desc>
+    <HD>12</HD>
+    <BAB>good</BAB>
+    <Fort>good</Fort>
+    <Ref>good</Ref>
+    <Will>good</Will>
+    <SkillPoints>12</SkillPoints>
+  </Type>
+  <Type>
+    <Name>Giant
+</Name>
+    <Desc>A giant is a humanoid-shaped creature of great strength, usually of at least Large size.</Desc>
+    <HD>8</HD>
+    <BAB>Average</BAB>
+    <Fort>Average</Fort>
+    <Ref>Poor</Ref>
+    <Will>Poor</Will>
+    <SkillPoints>2</SkillPoints>
+  </Type>
+</Types>

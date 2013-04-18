@@ -1,0 +1,157 @@
+/*
+			String mName, mDesc, mBAB, mFort, mRef, mWill;
+			int mHD, mSkillPoints;
+
+			 DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+			 DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+			 Document doc = docBuilder.parse (new File(file));
+
+	         // normalize text representation
+	         doc.getDocumentElement ().normalize ();
+	         System.out.println ("Root element of the doc is " + doc.getDocumentElement().getNodeName());
+
+
+	         NodeList listOfPersons = doc.getElementsByTagName("Type");
+	         int totalTypes = listOfPersons.getLength();
+	         System.out.println("Total no of Types : " + totalTypes);
+
+	         for(int s=0; s<listOfPersons.getLength() ; s++){
+	        	 Node firstNode = listOfPersons.item(s);
+	        	 if(firstNode.getNodeType() == Node.ELEMENT_NODE){
+	        		 Element firstElement = (Element)firstNode;
+
+	                 NodeList firstNameList = firstElement.getElementsByTagName("Name");
+	                 Element firstNameElement = (Element)firstNameList.item(0);
+
+	                 NodeList textFNList = firstNameElement.getChildNodes();
+	                 mName = ((Node)textFNList.item(0)).getNodeValue().trim();
+	                 
+	                 NodeList descList = firstElement.getElementsByTagName("Desc");
+	                 Element descElement = (Element)descList.item(0);
+
+	                 NodeList descFNList = descElement.getChildNodes();
+	                 mDesc = ((Node)descFNList.item(0)).getNodeValue().trim();
+	                 
+	                 NodeList HDList = firstElement.getElementsByTagName("HD");
+	                 Element HDElement = (Element)HDList.item(0);
+
+	                 NodeList HDFNList = HDElement.getChildNodes();
+	                 mHD = Integer.parseInt(((Node)HDFNList.item(0)).getNodeValue().trim());
+	                 
+	                 NodeList BABList = firstElement.getElementsByTagName("BAB");
+	                 Element BABElement = (Element)BABList.item(0);
+
+	                 NodeList BABFNList = BABElement.getChildNodes();
+	                 mBAB = ((Node)BABFNList.item(0)).getNodeValue().trim();
+	                 
+	                 NodeList fortList = firstElement.getElementsByTagName("Fort");
+	                 Element fortElement = (Element)fortList.item(0);
+
+	                 NodeList fortFNList = fortElement.getChildNodes();
+	                 mFort = ((Node)fortFNList.item(0)).getNodeValue().trim();
+	                 
+	                 NodeList refList = firstElement.getElementsByTagName("Ref");
+	                 Element refElement = (Element)refList.item(0);
+
+	                 NodeList refFNList = refElement.getChildNodes();
+	                 mRef = ((Node)refFNList.item(0)).getNodeValue().trim();
+	                 
+	                 NodeList willList = firstElement.getElementsByTagName("Will");
+	                 Element willelement = (Element)willList.item(0);
+
+	                 NodeList willFNList = willelement.getChildNodes();
+	                 mWill = ((Node)willFNList.item(0)).getNodeValue().trim();
+	                 
+	                 NodeList skillList = firstElement.getElementsByTagName("SkillPoints");
+	                 Element skillElement = (Element)skillList.item(0);
+
+	                 NodeList skillFNList = skillElement.getChildNodes();
+	                 mSkillPoints = Integer.parseInt(((Node)skillFNList.item(0)).getNodeValue().trim());
+	                 	
+	                 mTypes.add(new CreatureType(mName, mDesc, mHD, mBAB, mFort,mRef, mWill, mSkillPoints));
+	                }
+	            }
+	            */			
+	            
+	            
+	            
+	            
+	            public void saveType() throws Exception {
+	    // Create a XMLOutputFactory
+	    XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+	    // Create XMLEventWriter
+	    XMLEventWriter eventWriter = outputFactory.createXMLEventWriter(new FileOutputStream("F:\\Programming\\Eclipse - IDE\\workspace\\DM Tool\\src\\resources\\Type.xml"));
+	    // Create a EventFactory
+	    XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+	    XMLEvent end = eventFactory.createDTD("\n");
+	    XMLEvent tab = eventFactory.createDTD("  ");
+
+	    // Create config open tag
+	    StartElement configStartElement = eventFactory.createStartElement("", "", "Types");
+	    eventWriter.add(configStartElement);
+	    eventWriter.add(end);
+	    
+	    // Write the different nodes
+	    for(int i=0; i< mTypes.size(); i++){
+	    	eventWriter.add(tab);
+	    	eventWriter.add(eventFactory.createStartElement("", "", "Type"));
+	    	eventWriter.add(end);
+		    createNode(eventWriter, "Name", mTypes.get(i).getmName());
+		    createNode(eventWriter, "Desc", mTypes.get(i).getmDesc());
+		    createNode(eventWriter, "HD", String.valueOf(mTypes.get(i).getmHD()));
+		    createNode(eventWriter, "BAB", mTypes.get(i).getmBAB());
+		    createNode(eventWriter, "Fort", mTypes.get(i).getmFort());
+		    createNode(eventWriter, "Ref", mTypes.get(i).getmRef());
+		    createNode(eventWriter, "Will", mTypes.get(i).getmWill());
+		    createNode(eventWriter, "SkillPoints", String.valueOf(mTypes.get(i).getmSkillPoints()));
+		    eventWriter.add(tab);
+		    eventWriter.add(eventFactory.createEndElement("", "", "Type"));
+		    eventWriter.add(end);
+	    }
+	
+		eventWriter.add(eventFactory.createEndElement("", "", "Types"));
+		eventWriter.add(end);
+	    eventWriter.close();
+	  }
+	
+	public void saveSpell() throws Exception {
+	    // Create a XMLOutputFactory
+	    XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+	    // Create XMLEventWriter
+	    XMLEventWriter eventWriter = outputFactory.createXMLEventWriter(new FileOutputStream("F:\\Programming\\Eclipse - IDE\\workspace\\DM Tool\\src\\resources\\Spells.xml"));
+	    // Create a EventFactory
+	    XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+	    XMLEvent end = eventFactory.createDTD("\n");
+	    XMLEvent tab = eventFactory.createDTD("  ");
+
+	    // Create config open tag
+	    StartElement configStartElement = eventFactory.createStartElement("", "", "Spells");
+	    eventWriter.add(configStartElement);
+	    eventWriter.add(end);
+	    
+	    // Write the different nodes
+	    for(int i=0; i< mSpells.size(); i++){
+	    	eventWriter.add(tab);
+	    	eventWriter.add(eventFactory.createStartElement("", "", "Spell"));
+	    	eventWriter.add(end);
+		    createNode(eventWriter, "Name", mSpells.get(i).getName());
+		    createNode(eventWriter, "School", mSpells.get(i).getSchool());
+		    createNode(eventWriter, "Subschool", mSpells.get(i).getSubschool());
+		    createNode(eventWriter, "Level", mSpells.get(i).getLevel());
+		    createNode(eventWriter, "Components", mSpells.get(i).getComponents());
+		    createNode(eventWriter, "Casting Time", mSpells.get(i).getCastTime());
+		    createNode(eventWriter, "Range", mSpells.get(i).getRange());
+		    createNode(eventWriter, "Effect", mSpells.get(i).getEffect());
+		    createNode(eventWriter, "Duration", mSpells.get(i).getDuration());
+		    createNode(eventWriter, "Saving Throw", mSpells.get(i).getSavingThrow());
+		    createNode(eventWriter, "Spell Resistance", mSpells.get(i).getSR());
+		    createNode(eventWriter, "Description", mSpells.get(i).getDesc());
+		    eventWriter.add(tab);
+		    eventWriter.add(eventFactory.createEndElement("", "", "Spell"));
+		    eventWriter.add(end);
+	    }
+	
+		eventWriter.add(eventFactory.createEndElement("", "", "Spells"));
+		eventWriter.add(end);
+	    eventWriter.close();
+	  }
