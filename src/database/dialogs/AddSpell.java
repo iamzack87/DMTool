@@ -143,7 +143,7 @@ public class AddSpell extends JFrame {
 			  public void actionPerformed(ActionEvent evt) {
 				  mDB.addSpellToDatabase(new Spell(mName.getText(), mSchool.getSelectedItem().toString(), mSubschool.getSelectedItem().toString(), mLevel.getText(), mComponents.getText(),
 						  mCastTime.getText(), mRange.getSelectedItem().toString(), mEffect.getText(), mDuration.getText(),
-						  mSR.getSelectedItem().toString(), mSR.getSelectedItem().toString(), mDescription.getText().replace("\n", "mar")));
+						  mSR.getSelectedItem().toString(), mSR.getSelectedItem().toString(), "\"" + mDescription.getText() + "\""));
 				  try {
 					save();
 				} catch (Exception e) {

@@ -9,7 +9,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import actors.Actor;
+import battleMap.actors.Actor;
+
 
 import screens.BattleScreen;
 

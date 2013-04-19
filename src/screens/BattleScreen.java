@@ -8,8 +8,8 @@ import java.awt.event.MouseEvent;
 
 import dialogs.AddCharToBattleWindow;
 
-import actors.Actor;
 import battleMap.NodeMap;
+import battleMap.actors.Actor;
 
 import screenItems.Button;
 import screenItems.CharacterList;

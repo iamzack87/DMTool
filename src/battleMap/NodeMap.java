@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-import actors.Actor;
 
 import battleMap.Node;
+import battleMap.actors.Actor;
 
 public class NodeMap {
 	protected Node[][] mNodeMap;

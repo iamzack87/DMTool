@@ -48,7 +48,7 @@ public class DatabaseMain extends JFrame{
 	private ArrayList<Spell> mSpells;
 	public enum mXML{Type, Spell};
 	private String[] mTypeTags = new String[] { "Types", "Type", "Name", "Desc", "HD", "BAB", "Fort", "Ref", "Will", "SkillPoints"};
-	private String[] mSpellTags = new String[] { "Spells", "Spell", "Name", "School", "School", "Level", "Components", "CastingTime", "Range", "Effect", "Duration", "SavingThrow", "SpellResistance", "Description"};
+	private String[] mSpellTags = new String[] { "Spells", "Spell", "Name", "School", "Subschool", "Level", "Components", "CastingTime", "Range", "Effect", "Duration", "SavingThrow", "SpellResistance", "Description"};
 	private String mTypeXML = "F:\\Programming\\Eclipse\\workspace\\DMTool\\src\\resources\\Types.xml";
 	private String mSpellXML = "F:\\Programming\\Eclipse\\workspace\\DMTool\\src\\resources\\Spells.xml";
 	
@@ -166,23 +166,22 @@ public class DatabaseMain extends JFrame{
 
 	        // normalize text representation
 	        doc.getDocumentElement ().normalize ();
-	        System.out.println ("Root element of the doc is " + doc.getDocumentElement().getNodeName());
 
 	        NodeList listOfPersons = doc.getElementsByTagName(tags[1]);
-	        int totalTypes = listOfPersons.getLength();
-	        System.out.println("Total no of Types : " + totalTypes);
 
 	        for(int j=0; j<listOfPersons.getLength() ; j++){
 	        	for(int i=2; i<tags.length; i++){
-	        		Node firstNode = listOfPersons.item(j);
-	        		if(firstNode.getNodeType() == Node.ELEMENT_NODE){
-	        			Element firstElement = (Element)firstNode;
+	        		Node node = listOfPersons.item(j);
+	        		if(node.getNodeType() == Node.ELEMENT_NODE){
+	        			Element element = (Element)node;
 
-	        			NodeList firstNameList = firstElement.getElementsByTagName(tags[i]);
-	        			Element firstNameElement = (Element)firstNameList.item(0);
+	        			NodeList tagList = element.getElementsByTagName(tags[i]);
+	        			Element firstNameElement = (Element)tagList.item(0);
 
-	        			NodeList textFNList = firstNameElement.getChildNodes();
-	        			readTags.add(((Node)textFNList.item(0)).getNodeValue().trim());
+	        			NodeList textList = firstNameElement.getChildNodes();
+	        			readTags.add(((Node)textList.item(0)).getNodeValue().trim());
+	        			
+	        			System.out.println(((Node)textList.item(0)).getNodeValue().trim());
 	        		}
 	        	}
 	        	switch(type){

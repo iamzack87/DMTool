@@ -4,7 +4,8 @@ import game.DMToolGame;
 
 import java.awt.Graphics2D;
 
-import actors.Actor;
+import battleMap.actors.Actor;
+
 
 public class CharacterPane extends ScreenItem{
 	
