@@ -1,4 +1,4 @@
-package dialogs;
+package battleMap.dialogs;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;

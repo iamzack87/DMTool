@@ -37,10 +37,12 @@ import javax.xml.stream.events.XMLEvent;
 
 import database.dialogs.AddSpell;
 import database.dialogs.AddType;
+import database.dialogs.CreateMonster;
 import database.display.SpellWindow;
 import database.display.TypeWindow;
 import database.items.CreatureType;
 import database.items.DatabaseObject;
+import database.items.Monster;
 import database.items.Spell;
 
 public class DatabaseMain extends JFrame{
@@ -51,28 +53,35 @@ public class DatabaseMain extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private ArrayList<CreatureType> mTypes;
 	private ArrayList<Spell> mSpells;
-	public enum mXML{Type, Spell};
+	private ArrayList<Monster> mMonsters;
+	public enum mXML{Type, Spell, Monster};
 	private String[] mTypeTags = new String[] { "Types", "Type", "Name", "Desc", "HD", "BAB", "Fort", "Ref", "Will", "SkillPoints"};
 	private String[] mSpellTags = new String[] { "Spells", "Spell", "Name", "School", "Subschool", "Level", "Components", "CastingTime", "Range", "Effect", "Duration", "SavingThrow", "SpellResistance", "Description"};
+	private String[] mMonsterTags = new String[] { "Monsters", "Monster", "Name", "Type", "Size", "HD", "HP", "Init", "Speed", "AC", "Touch", "Flat", "BAB", "Grapple", "Attack", "FullAttack", "Space", "Reach", "SpecialAttacks", "SpecialQualities", "Fort", "Ref", "Will", "Skills", "Feats", "Environment", "Organization", "CR", "Alignment", "Advancement", "LA", "Description"};
 	private String mTypeXML = this.getClass().getResource("/resources/xml/Types.xml").getFile();
 	private String mSpellXML = this.getClass().getResource("/resources/xml/Spells.xml").getFile();
+	private String mMonsterXML = this.getClass().getResource("/resources/xml/Monsters.xml").getFile();
 	
 	private JMenuBar menuBar;
 	private JMenu menu, submenu;
 	private JMenuItem menuItem;
 	
-	private JPanel mTypePanel, mSpellPanel;
+	private JPanel mTypePanel, mSpellPanel, mMonsterPanel;
 	
 	private JTabbedPane mTabbedPane;
 	
-	private JList<String> mSpellList, mTypeList;
+	private JList<String> mSpellList, mTypeList, mMonsterList;
 	
-	private DefaultListModel<String> mSpellModel, mTypeModel;
+	private DefaultListModel<String> mSpellModel, mTypeModel, mMonsterModel;
+	
+	private int loop = 0;
+	
 	public DatabaseMain(int width, int height){
 		setSize(width, height);
 		
 		mTypes = new ArrayList<CreatureType>();
 		mSpells = new ArrayList<Spell>();
+		mMonsters = new ArrayList<Monster>();
 		
 		readDatabase();
  
@@ -103,9 +112,19 @@ public class DatabaseMain extends JFrame{
 				    openAddWindow(mXML.Spell);
 				  }});
         submenu.add(menuItem);
-        menu.add(submenu);   
+        menu.add(submenu);
+        
+        //CREATE MONSTER
+        menuItem = new JMenuItem("Create Monster");
+        menuItem.addActionListener(new ActionListener() {
+			  public void actionPerformed(ActionEvent evt) {
+				    createMonster();
+				  }});
+        menu.add(menuItem);
         
         setJMenuBar(menuBar);
+        
+        
 		
 		
 		//Tabs
@@ -116,7 +135,7 @@ public class DatabaseMain extends JFrame{
         mTypePanel = new JPanel();
         mTypeModel = new DefaultListModel<String>();
         for(int i=0; i<mTypes.size(); i++){
-        	mTypeModel.addElement(mTypes.get(i).getmName());
+        	mTypeModel.addElement(mTypes.get(i).getName());
         }
         
         mTypeList = new JList<String>(mTypeModel);
@@ -144,6 +163,22 @@ public class DatabaseMain extends JFrame{
           });
         mSpellPanel.add(mSpellList);
         mTabbedPane.addTab("Spells", null, mSpellPanel, null);
+        
+       //Monsters
+        mMonsterPanel = new JPanel();
+        mMonsterModel = new DefaultListModel<String>();
+        for(int i=0; i<mMonsters.size(); i++){
+        	mMonsterModel.addElement(mMonsters.get(i).getName());
+        }
+        
+        mMonsterList = new JList<String>(mMonsterModel);
+        mMonsterList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+            	openDataWindow(mXML.Monster);
+            }
+          });
+        mMonsterPanel.add(mMonsterList);
+        mTabbedPane.addTab("Monsters", null, mMonsterPanel, null);
          
         //Add the tabbed pane to this panel.
         add(mTabbedPane);
@@ -164,6 +199,7 @@ public class DatabaseMain extends JFrame{
 	public void readDatabase(){
 		readXMLFile(mTypeXML, mXML.Type);
 		readXMLFile(mSpellXML, mXML.Spell);
+		//readXMLFile(mMonsterXML, mXML.Monster);
 	}
 	
 	public void readXMLFile(String file, mXML type){
@@ -177,6 +213,9 @@ public class DatabaseMain extends JFrame{
 				break;
 			case Spell:
 				tags = mSpellTags;
+				break;
+			case Monster:
+				tags = mMonsterTags;
 				break;	
 			default:
 				break;
@@ -184,6 +223,7 @@ public class DatabaseMain extends JFrame{
 			
 			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+			
 			Document doc = docBuilder.parse (new File(file));
 
 	        // normalize text representation
@@ -215,9 +255,15 @@ public class DatabaseMain extends JFrame{
 					mSpells.add(newSpell);
 					readTags.clear();
 					break;
+				case Monster:
+					Monster newMonster = new Monster(readTags);
+					mMonsters.add(newMonster);
+					readTags.clear();
+					break;
 				default:
 					break;
 				}
+	        	
 	        }
 
 			
@@ -228,6 +274,10 @@ public class DatabaseMain extends JFrame{
 	
 	public void addTypeToDatabase(CreatureType x){
 		mTypes.add(x);
+	}
+	
+	public void addMonsterToDatabase(Monster x){
+		mMonsters.add(x);
 	}
 	
 	public void addSpellToDatabase(Spell x){
@@ -253,6 +303,13 @@ public class DatabaseMain extends JFrame{
 			window.setLocationRelativeTo(null);
 			window.setVisible(true);
 		}
+	}
+	
+	public void createMonster(){
+		CreateMonster window = new CreateMonster(this);
+		//window.setResizable(false);
+		window.setLocationRelativeTo(null);
+		window.setVisible(true);
 	}
 	
 	public void openDataWindow(mXML type){
@@ -296,6 +353,12 @@ public class DatabaseMain extends JFrame{
 			file = mSpellXML;
 			tags = mSpellTags;
 			list = mSpells;
+			break;
+		case Monster:
+			System.out.println("DERP");
+			file = mMonsterXML;
+			tags = mMonsterTags;
+			list = mMonsters;
 			break;	
 		default:
 			break;
@@ -328,27 +391,33 @@ public class DatabaseMain extends JFrame{
 		    eventWriter.add(end);
 	    }
 	
+	    System.out.println("dork");
 		eventWriter.add(eventFactory.createEndElement("", "",  tags[0]));
 		eventWriter.add(end);
 	    eventWriter.close();
+	    System.out.println("ended");
 	}
 
 	  private void createNode(XMLEventWriter eventWriter, String name, String value) throws XMLStreamException {
-
-	    XMLEventFactory eventFactory = XMLEventFactory.newInstance();
-	    XMLEvent end = eventFactory.createDTD("\n");
-	    XMLEvent tab = eventFactory.createDTD("  ");
-	    eventWriter.add(tab);
-	    // Create Start node
-	    StartElement sElement = eventFactory.createStartElement("", "", name);
-	    eventWriter.add(tab);
-	    eventWriter.add(sElement);
-	    // Create Content
-	    Characters characters = eventFactory.createCharacters(value);
-	    eventWriter.add(characters);
-	    // Create End node
-	    EndElement eElement = eventFactory.createEndElement("", "", name);
-	    eventWriter.add(eElement);
-	    eventWriter.add(end);
+		  System.out.println(loop++ +": " + value);
+		  XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+		  XMLEvent end = eventFactory.createDTD("\n");
+		  XMLEvent tab = eventFactory.createDTD("  ");
+		  eventWriter.add(tab);
+		  // Create Start node
+		  StartElement sElement = eventFactory.createStartElement("", "", name);
+		  eventWriter.add(tab);
+		  eventWriter.add(sElement);
+		  // Create Content
+		  Characters characters = eventFactory.createCharacters(value);
+		  eventWriter.add(characters);
+		  // Create End node
+		  EndElement eElement = eventFactory.createEndElement("", "", name);
+		  eventWriter.add(eElement);
+		  eventWriter.add(end);
+	  }
+	  
+	  public ArrayList<CreatureType> getTypes(){
+		  return mTypes;
 	  }
 }

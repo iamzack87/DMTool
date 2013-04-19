@@ -1,22 +1,3 @@
 <Types>
-  <Type>
-    <Name>Dragon</Name>
-    <Desc>derp</Desc>
-    <HD>12</HD>
-    <BAB>Good</BAB>
-    <Fort>Good</Fort>
-    <Ref>Good</Ref>
-    <Will>Good</Will>
-    <SkillPoints>6</SkillPoints>
-  </Type>
-  <Type>
-    <Name>Undead</Name>
-    <Desc>zombies</Desc>
-    <HD>12</HD>
-    <BAB>Poor</BAB>
-    <Fort>Poor</Fort>
-    <Ref>Poor</Ref>
-    <Will>Good</Will>
-    <SkillPoints>4</SkillPoints>
-  </Type>
+
 </Types>

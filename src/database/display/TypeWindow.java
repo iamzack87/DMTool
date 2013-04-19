@@ -34,49 +34,49 @@ public class TypeWindow extends JFrame {
 		c.gridy = 0;
 		this.add(new JLabel("Name: "), c);
 		c.gridx = 1;
-		this.add(new JLabel(mCreature.getmName()), c);
+		this.add(new JLabel(mCreature.getName()), c);
 		
 		c.gridx = 0;
 		c.gridy = 1;
 		this.add(new JLabel("Desc: "), c);
 		c.gridx = 1;
-		this.add(new JLabel(mCreature.getmDesc()), c);
+		this.add(new JLabel(mCreature.getDesc()), c);
 		
 		c.gridx = 0;
 		c.gridy = 2;
 		this.add(new JLabel("HD: "), c);
 		c.gridx = 1;
-		this.add(new JLabel("D" + mCreature.getmHD()), c);
+		this.add(new JLabel("D" + mCreature.getHD()), c);
 		
 		c.gridx = 0;
 		c.gridy = 3;
 		this.add(new JLabel("BAB: "), c);
 		c.gridx = 1;
-		this.add(new JLabel(mCreature.getmBAB()), c);
+		this.add(new JLabel(mCreature.getBAB()), c);
 		
 		c.gridx = 0;
 		c.gridy = 4;
 		this.add(new JLabel("Fort: "), c);
 		c.gridx = 1;
-		this.add(new JLabel(mCreature.getmFort()), c);
+		this.add(new JLabel(mCreature.getFort()), c);
 		
 		c.gridx = 0;
 		c.gridy = 5;
 		this.add(new JLabel("Ref: "), c);
 		c.gridx = 1;
-		this.add(new JLabel(mCreature.getmRef()), c);
+		this.add(new JLabel(mCreature.getRef()), c);
 		
 		c.gridx = 0;
 		c.gridy = 6;
 		this.add(new JLabel("Will: "), c);
 		c.gridx = 1;
-		this.add(new JLabel(mCreature.getmWill()), c);
+		this.add(new JLabel(mCreature.getWill()), c);
 		
 		c.gridx = 0;
 		c.gridy = 7;
 		this.add(new JLabel("Skill Points: "), c);
 		c.gridx = 1;
-		this.add(new JLabel(String.valueOf(mCreature.getmSkillPoints())), c);
+		this.add(new JLabel(String.valueOf(mCreature.getSkillPoints())), c);
 		
 		pack();
 	}

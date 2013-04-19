@@ -2,7 +2,7 @@ package database.items;
 
 import java.util.ArrayList;
 
-public class Spell extends DatabaseObject{
+public class Spell implements DatabaseObject{
 	
 	private String mName, mSchool, mSubschool, mLevel, mComponents, mCastTime, mRange, mEffect, mDuration, mSavingThrow, mSR, mDesc;
 	
@@ -108,7 +108,4 @@ public class Spell extends DatabaseObject{
 	public String getDesc() {
 		return mDesc;
 	}
-	
-	
-
 }

@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
-import dialogs.AddCharToBattleWindow;
+import battleMap.dialogs.AddCharToBattleWindow;
 
 import battleMap.NodeMap;
 import battleMap.actors.Actor;

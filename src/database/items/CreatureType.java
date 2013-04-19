@@ -2,7 +2,7 @@ package database.items;
 
 import java.util.ArrayList;
 
-public class CreatureType extends DatabaseObject{
+public class CreatureType implements DatabaseObject{
 	
 	private String mName, mDesc, mBAB, mFort, mRef, mWill;
 	private int mHD, mSkillPoints;
@@ -46,39 +46,39 @@ public class CreatureType extends DatabaseObject{
 		return temp;
 	}
 
-	public String getmName() {
+	public String getName() {
 		return mName;
 	}
 
-	public String getmDesc() {
+	public String getDesc() {
 		return mDesc;
 	}
 
-	public String getmBAB() {
+	public String getBAB() {
 		return mBAB;
 	}
 
-	public String getmFort() {
+	public String getFort() {
 		return mFort;
 	}
 
-	public String getmRef() {
+	public String getRef() {
 		return mRef;
 	}
 
-	public String getmWill() {
+	public String getWill() {
 		return mWill;
 	}
 
-	public int getmHD() {
+	public int getHD() {
 		return mHD;
 	}
 
-	public int getmSkillPoints() {
+	public int getSkillPoints() {
 		return mSkillPoints;
 	}
 
-	public ArrayList<SpecialAbility> getmSpecialAbility() {
+	public ArrayList<SpecialAbility> getSpecialAbility() {
 		return mSpecialAbility;
 	}
 }

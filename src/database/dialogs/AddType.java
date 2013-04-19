@@ -22,7 +22,8 @@ public class AddType extends JFrame {
 	private JTextField mName, mDesc, mSkillPoints;
 	private JButton saveButton, cancelButton;
 	private JComboBox mHD, mBAB, mFort, mRef, mWill;
-	private String[] typeStrings = { "Poor", "Average", "Good"};
+	private String[] babStrings = { "Poor", "Average", "Good"};
+	private String[] saveStrings = { "Poor", "Average", "Good"};
 	private String[] HDStrings = { "4", "6", "8", "10", "12"};
 	
 	public AddType(DatabaseMain db){
@@ -64,7 +65,7 @@ public class AddType extends JFrame {
 		c.gridy = 3;
 		this.add(new JLabel("BAB: "), c);
 		c.gridx = 1;
-		mBAB = new JComboBox(typeStrings);
+		mBAB = new JComboBox(babStrings);
 		mBAB.setSelectedIndex(0);
 		this.add(mBAB, c);
 		
@@ -72,7 +73,7 @@ public class AddType extends JFrame {
 		c.gridy = 4;
 		this.add(new JLabel("Fort: "), c);
 		c.gridx = 1;
-		mFort = new JComboBox(typeStrings);
+		mFort = new JComboBox(saveStrings);
 		mFort.setSelectedIndex(0);
 		this.add(mFort, c);
 		
@@ -80,7 +81,7 @@ public class AddType extends JFrame {
 		c.gridy = 5;
 		this.add(new JLabel("Ref: "), c);
 		c.gridx = 1;
-		mRef = new JComboBox(typeStrings);
+		mRef = new JComboBox(saveStrings);
 		mRef.setSelectedIndex(0);
 		this.add(mRef, c);
 		
@@ -88,7 +89,7 @@ public class AddType extends JFrame {
 		c.gridy = 6;
 		this.add(new JLabel("Will: "), c);
 		c.gridx = 1;
-		mWill = new JComboBox(typeStrings);
+		mWill = new JComboBox(saveStrings);
 		mWill.setSelectedIndex(0);
 		this.add(mWill, c);
 		
