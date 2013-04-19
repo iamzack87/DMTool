@@ -14,7 +14,6 @@ public class Spell extends DatabaseObject{
 			String mLevel, String mComponents, String mCastTime, String mRange,
 			String mEffect, String mDuration, String mSavingThrow, String mSR,
 			String mDesc) {
-		super();
 		this.mName = mName;
 		this.mSchool = mSchool;
 		this.mSubschool = mSubschool;

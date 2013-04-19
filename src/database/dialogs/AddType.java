@@ -38,6 +38,7 @@ public class AddType extends JFrame {
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
 			
 		c.gridx = 0;
 		c.gridy = 0;
