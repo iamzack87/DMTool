@@ -49,8 +49,8 @@ public class DatabaseMain extends JFrame{
 	public enum mXML{Type, Spell};
 	private String[] mTypeTags = new String[] { "Types", "Type", "Name", "Desc", "HD", "BAB", "Fort", "Ref", "Will", "SkillPoints"};
 	private String[] mSpellTags = new String[] { "Spells", "Spell", "Name", "School", "School", "Level", "Components", "CastingTime", "Range", "Effect", "Duration", "SavingThrow", "SpellResistance", "Description"};
-	private String mTypeXML = "F:\\Programming\\Eclipse - IDE\\workspace\\DMTool\\src\\resources\\Types.xml";
-	private String mSpellXML = "F:\\Programming\\Eclipse - IDE\\workspace\\DMTool\\src\\resources\\panda.xml";
+	private String mTypeXML = "F:\\Programming\\Eclipse\\workspace\\DMTool\\src\\resources\\Types.xml";
+	private String mSpellXML = "F:\\Programming\\Eclipse\\workspace\\DMTool\\src\\resources\\Spells.xml";
 	
 	public DatabaseMain(int width, int height){
 		setSize(width, height);
@@ -230,14 +230,20 @@ public class DatabaseMain extends JFrame{
 	}
 	
 	public void saveFile(mXML type) throws Exception{
+		String file = null;
 		String[] tags = null;
+		ArrayList<? extends DatabaseObject> list = null;
 		
 		switch(type){
 		case Type:
+			file = mTypeXML;
 			tags = mTypeTags;
+			list = mTypes;
 			break;
 		case Spell:
+			file = mSpellXML;
 			tags = mSpellTags;
+			list = mSpells;
 			break;	
 		default:
 			break;
@@ -246,7 +252,7 @@ public class DatabaseMain extends JFrame{
 		// Create a XMLOutputFactory
 	    XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
 	    // Create XMLEventWriter
-	    XMLEventWriter eventWriter = outputFactory.createXMLEventWriter(new FileOutputStream("F:\\Programming\\Eclipse - IDE\\workspace\\DMTool\\src\\resources\\panda.xml"));
+	    XMLEventWriter eventWriter = outputFactory.createXMLEventWriter(new FileOutputStream(file));
 	    // Create a EventFactory
 	    XMLEventFactory eventFactory = XMLEventFactory.newInstance();
 	    XMLEvent end = eventFactory.createDTD("\n");
@@ -258,12 +264,12 @@ public class DatabaseMain extends JFrame{
 	    eventWriter.add(end);
 	    
 	    // Write the different nodes
-	    for(int i=0; i< mSpells.size(); i++){
+	    for(int i=0; i< list.size(); i++){
 	    	eventWriter.add(tab);
 	    	eventWriter.add(eventFactory.createStartElement("", "", tags[1]));
 	    	eventWriter.add(end);
 	    	for(int j=2; j<tags.length; j++){
-	    		createNode(eventWriter, tags[j], mSpells.get(i).getStringArray().get(j-2));
+	    		createNode(eventWriter, tags[j], list.get(i).getStringArray().get(j-2));
 	    	}
 	    	eventWriter.add(tab);
 		    eventWriter.add(eventFactory.createEndElement("", "", tags[1]));

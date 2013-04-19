@@ -31,6 +31,20 @@ public class CreatureType extends DatabaseObject{
 		this.mWill = readTags.get(6);
 		this.mSkillPoints = Integer.parseInt(readTags.get(7));
 	}
+	
+	public ArrayList<String> getStringArray(){
+		ArrayList<String> temp = new ArrayList<String>();
+		temp.add(mName);
+		temp.add(mDesc);
+		temp.add(String.valueOf(mHD));
+		temp.add(mBAB);
+		temp.add(mFort);
+		temp.add(mRef);
+		temp.add(mWill);
+		temp.add(String.valueOf(mSkillPoints));
+		
+		return temp;
+	}
 
 	public String getmName() {
 		return mName;

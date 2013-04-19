@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import database.DatabaseMain;
+import database.DatabaseMain.mXML;
 import database.items.CreatureType;
 
 public class AddType extends JFrame {
@@ -126,6 +127,6 @@ public class AddType extends JFrame {
 	}
 	
 	public void save() throws Exception{
-		//mDB.saveType();
+		mDB.saveFile(mXML.Type);
 	}
 }
