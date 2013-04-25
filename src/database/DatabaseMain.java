@@ -51,15 +51,20 @@ public class DatabaseMain extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public enum mXML{Type, Spell, Monster};
+	
+	private ArrayList<ArrayList<? extends DatabaseObject>> mDBList;
 	private ArrayList<CreatureType> mTypes;
 	private ArrayList<Spell> mSpells;
 	private ArrayList<Monster> mMonsters;
-	public enum mXML{Type, Spell, Monster};
 	
+	private ArrayList<String[]> mTagList;
 	private String[] mTypeTags = new String[] { "Types", "Type", "Name", "Desc", "HD", "BAB", "Fort", "Ref", "Will", "SkillPoints"};
 	private String[] mSpellTags = new String[] { "Spells", "Spell", "Name", "School", "Subschool", "Level", "Components", "CastingTime", "Range", "Effect", "Duration", "SavingThrow", "SpellResistance", "Description"};
 	private String[] mMonsterTags = new String[] { "Monsters", "Monster", "Name", "Type", "Size", "HD", "HP", "Init", "Speed", "AC", "Touch", "Flat", "BAB", "Grapple", "Attack", "FullAttack", "Space", "Reach", "SpecialAttacks", "SpecialQualities", "Fort", "Ref", "Will", "Skills", "Feats", "Environment", "Organization", "CR", "Alignment", "Advancement", "LA", "Description"};
 	
+	private ArrayList<String> mXMLList;
 	private String mTypeXML = "F:/Programming/Eclipse/workspace/DMTool/src/resources/xml/Types.xml";
 	private String mSpellXML = "F:/Programming/Eclipse/workspace/DMTool/src/resources/xml/Spells.xml";
 	private String mMonsterXML = "F:/Programming/Eclipse/workspace/DMTool/src/resources/xml/Monsters.xml";
@@ -69,20 +74,33 @@ public class DatabaseMain extends JFrame{
 	private JMenuItem menuItem;
 	
 	private JPanel mTypePanel, mSpellPanel, mMonsterPanel;
-	
 	private JTabbedPane mTabbedPane;
-	
+
 	private JList<String> mSpellList, mTypeList, mMonsterList;
-	
 	private DefaultListModel<String> mSpellModel, mTypeModel, mMonsterModel;
 	
 	
 	public DatabaseMain(int width, int height){
 		setSize(width, height);
 		
+		mDBList = new ArrayList<>();
 		mTypes = new ArrayList<CreatureType>();
 		mSpells = new ArrayList<Spell>();
 		mMonsters = new ArrayList<Monster>();
+		
+		mDBList.add(mTypes);
+		mDBList.add(mSpells);
+		mDBList.add(mMonsters);
+		
+		mTagList = new ArrayList<String[]>();
+		mTagList.add(mTypeTags);
+		mTagList.add(mSpellTags);
+		mTagList.add(mMonsterTags);
+		
+		mXMLList = new ArrayList<String>();
+		mXMLList.add(mTypeXML);
+		mXMLList.add(mSpellXML);
+		mXMLList.add(mMonsterXML);
 		
 		readDatabase();
  
@@ -125,9 +143,6 @@ public class DatabaseMain extends JFrame{
         
         setJMenuBar(menuBar);
         
-        
-		
-		
 		//Tabs
         mTabbedPane = new JTabbedPane();
          
@@ -205,22 +220,8 @@ public class DatabaseMain extends JFrame{
 	
 	public void readXMLFile(String file, mXML type){
 		try {
-			String[] tags = null;
+			String[] tags = mTagList.get(type.ordinal());
 			ArrayList<String> readTags = new ArrayList<String>();
-			
-			switch(type){
-			case Type:
-				tags = mTypeTags;
-				break;
-			case Spell:
-				tags = mSpellTags;
-				break;
-			case Monster:
-				tags = mMonsterTags;
-				break;	
-			default:
-				break;
-			}
 			
 			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
@@ -250,6 +251,7 @@ public class DatabaseMain extends JFrame{
 	        			}
 	        		}
 	        	}
+	        	
 	        	switch(type){
 				case Type:
 					CreatureType newType = new CreatureType(readTags);
@@ -269,10 +271,7 @@ public class DatabaseMain extends JFrame{
 				default:
 					break;
 				}
-	        	
-	        }
-
-			
+	        }			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -350,37 +349,12 @@ public class DatabaseMain extends JFrame{
 			window.setVisible(true);
 		}
 	}
-	public void openSpellWindow(){
-		SpellWindow window = new SpellWindow(this, mSpells.get(mSpellList.getSelectedIndex()));
-		window.setResizable(false);
-		window.setLocationRelativeTo(null);
-		window.setVisible(true);
-	}
+
 	
 	public void saveFile(mXML type) throws Exception{
-		String file = null;
-		String[] tags = null;
-		ArrayList<? extends DatabaseObject> list = null;
-		
-		switch(type){
-		case Type:
-			file = mTypeXML;
-			tags = mTypeTags;
-			list = mTypes;
-			break;
-		case Spell:
-			file = mSpellXML;
-			tags = mSpellTags;
-			list = mSpells;
-			break;
-		case Monster:
-			file = mMonsterXML;
-			tags = mMonsterTags;
-			list = mMonsters;
-			break;	
-		default:
-			break;
-		}
+		String file = mXMLList.get(type.ordinal());
+		String[] tags = mTagList.get(type.ordinal());
+		ArrayList<? extends DatabaseObject> list = mDBList.get(type.ordinal());
 		
 		// Create a XMLOutputFactory
 	    XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
