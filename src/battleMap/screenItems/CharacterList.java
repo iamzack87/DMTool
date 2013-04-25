@@ -1,9 +1,11 @@
-package screenItems;
+package battleMap.screenItems;
 
 import game.DMToolGame;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+
+import screenItems.ScreenItem;
 
 import battleMap.actors.Actor;
 

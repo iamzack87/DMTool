@@ -1,4 +1,4 @@
-package screenItems;
+package battleMap.screenItems;
 
 import game.DMToolGame;
 
@@ -6,13 +6,17 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import screenItems.ScreenItem;
+
 import battleMap.actors.Actor;
 
 
 public class CharacterPane extends ScreenItem implements MouseListener{
 	
+	private int WIDTH = 140;
+	private int HEIGHT = 70;
 	private Actor mCharacter;
-	private int mInitiative, mX, mY;
+	private int mInitiative;
 	
 	public CharacterPane(){
 		System.out.println("mar");
@@ -44,7 +48,6 @@ public class CharacterPane extends ScreenItem implements MouseListener{
 			g2d.drawImage(mCharacter.getImage(), mX+5, mY+5, window);
 		}
 	}
-	
 
 	public Actor getmCharacter() {
 		return mCharacter;
@@ -58,9 +61,10 @@ public class CharacterPane extends ScreenItem implements MouseListener{
 		this.mInitiative = mInitiative;
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseClicked(MouseEvent e) {
+		if(this.contains(e.getPoint())){
+			System.out.println(mCharacter.getName());
+		}
 		
 	}
 

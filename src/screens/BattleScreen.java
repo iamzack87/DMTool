@@ -7,13 +7,13 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 import battleMap.dialogs.AddCharToBattleWindow;
+import battleMap.screenItems.CharacterList;
+import battleMap.screenItems.CharacterPane;
 
 import battleMap.NodeMap;
 import battleMap.actors.Actor;
 
 import screenItems.Button;
-import screenItems.CharacterList;
-import screenItems.CharacterPane;
 import screenItems.ScreenItem;
 
 public class BattleScreen extends Screen{

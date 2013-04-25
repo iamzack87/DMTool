@@ -1,4 +1,6 @@
-package screenItems;
+package battleMap.screenItems;
+
+import screenItems.ScreenItem;
 
 public class NewCharacterPane extends ScreenItem{
 	
