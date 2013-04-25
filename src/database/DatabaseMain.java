@@ -55,12 +55,14 @@ public class DatabaseMain extends JFrame{
 	private ArrayList<Spell> mSpells;
 	private ArrayList<Monster> mMonsters;
 	public enum mXML{Type, Spell, Monster};
+	
 	private String[] mTypeTags = new String[] { "Types", "Type", "Name", "Desc", "HD", "BAB", "Fort", "Ref", "Will", "SkillPoints"};
 	private String[] mSpellTags = new String[] { "Spells", "Spell", "Name", "School", "Subschool", "Level", "Components", "CastingTime", "Range", "Effect", "Duration", "SavingThrow", "SpellResistance", "Description"};
 	private String[] mMonsterTags = new String[] { "Monsters", "Monster", "Name", "Type", "Size", "HD", "HP", "Init", "Speed", "AC", "Touch", "Flat", "BAB", "Grapple", "Attack", "FullAttack", "Space", "Reach", "SpecialAttacks", "SpecialQualities", "Fort", "Ref", "Will", "Skills", "Feats", "Environment", "Organization", "CR", "Alignment", "Advancement", "LA", "Description"};
-	private String mTypeXML = this.getClass().getResource("/resources/xml/Types.xml").getFile();
-	private String mSpellXML = this.getClass().getResource("/resources/xml/Spells.xml").getFile();
-	private String mMonsterXML = this.getClass().getResource("/resources/xml/Monsters.xml").getFile();
+	
+	private String mTypeXML = "F:/Programming/Eclipse/workspace/DMTool/src/resources/xml/Types.xml";
+	private String mSpellXML = "F:/Programming/Eclipse/workspace/DMTool/src/resources/xml/Spells.xml";
+	private String mMonsterXML = "F:/Programming/Eclipse/workspace/DMTool/src/resources/xml/Monsters.xml";
 	
 	private JMenuBar menuBar;
 	private JMenu menu, submenu;
@@ -74,7 +76,6 @@ public class DatabaseMain extends JFrame{
 	
 	private DefaultListModel<String> mSpellModel, mTypeModel, mMonsterModel;
 	
-	private int loop = 0;
 	
 	public DatabaseMain(int width, int height){
 		setSize(width, height);
@@ -199,7 +200,7 @@ public class DatabaseMain extends JFrame{
 	public void readDatabase(){
 		readXMLFile(mTypeXML, mXML.Type);
 		readXMLFile(mSpellXML, mXML.Spell);
-		//readXMLFile(mMonsterXML, mXML.Monster);
+		readXMLFile(mMonsterXML, mXML.Monster);
 	}
 	
 	public void readXMLFile(String file, mXML type){
@@ -241,7 +242,12 @@ public class DatabaseMain extends JFrame{
 	        			Element firstNameElement = (Element)tagList.item(0);
 
 	        			NodeList textList = firstNameElement.getChildNodes();
-	        			readTags.add(((Node)textList.item(0)).getNodeValue().trim());
+	        			if(textList.item(0) != null){
+	        				readTags.add(((Node)textList.item(0)).getNodeValue().trim());
+	        			}
+	        			else{
+	        				readTags.add("");
+	        			}
 	        		}
 	        	}
 	        	switch(type){
@@ -273,11 +279,24 @@ public class DatabaseMain extends JFrame{
 	}
 	
 	public void addTypeToDatabase(CreatureType x){
-		mTypes.add(x);
+		boolean exists = false;
+		for(int i=0; i<mTypes.size(); i++){
+			if(mTypes.get(i).getName().equals(x.getName())){
+				exists = true;
+			}
+		}
+		if(!exists){
+			mTypes.add(x);
+			mTypeModel.addElement(x.getName());
+		}
+		else{
+			System.out.println("Already Exists");
+		}
 	}
 	
 	public void addMonsterToDatabase(Monster x){
 		mMonsters.add(x);
+		mMonsterModel.addElement(x.getName());
 	}
 	
 	public void addSpellToDatabase(Spell x){
@@ -355,7 +374,6 @@ public class DatabaseMain extends JFrame{
 			list = mSpells;
 			break;
 		case Monster:
-			System.out.println("DERP");
 			file = mMonsterXML;
 			tags = mMonsterTags;
 			list = mMonsters;
@@ -391,15 +409,12 @@ public class DatabaseMain extends JFrame{
 		    eventWriter.add(end);
 	    }
 	
-	    System.out.println("dork");
 		eventWriter.add(eventFactory.createEndElement("", "",  tags[0]));
 		eventWriter.add(end);
 	    eventWriter.close();
-	    System.out.println("ended");
 	}
 
 	  private void createNode(XMLEventWriter eventWriter, String name, String value) throws XMLStreamException {
-		  System.out.println(loop++ +": " + value);
 		  XMLEventFactory eventFactory = XMLEventFactory.newInstance();
 		  XMLEvent end = eventFactory.createDTD("\n");
 		  XMLEvent tab = eventFactory.createDTD("  ");

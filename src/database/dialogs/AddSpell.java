@@ -22,7 +22,7 @@ public class AddSpell extends JFrame {
 	private JTextField mName, mLevel, mComponents, mCastTime, mEffect, mDuration, mArcaneComponents, mDivineComponents, mXPCost;
 	private JButton saveButton, cancelButton;
 	private JTextPane mDescription;
-	private JComboBox mSchool, mSubschool, mRange, mSave, mSR;
+	private JComboBox<?> mSchool, mSubschool, mRange, mSave, mSR;
 	private String[] mSchoolString = { "Abjuration", "Conjuration", "Divination", "Enchantment", "Evocation", "Illusion", "Necromancy", "Transmutation", "General"};
 	private String[] mSubschoolString = { "-", "Scrying"};
 	private String[] mYesNoString = {"Yes", "No"};
@@ -149,6 +149,7 @@ public class AddSpell extends JFrame {
 					save();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
+					System.out.println("===========================");
 					e.printStackTrace();
 				}
 				  }});

@@ -46,12 +46,12 @@ public class BattleScreen extends Screen{
 	}
 	
 	public void addParticipant(Actor x){
-		mList.AddCharacter(new CharacterPane(x));
+		mList.AddCharacter(x);
 	}
 	
 	public void openCharacterDialog(Actor x){
 		AddCharToBattleWindow dialog = new AddCharToBattleWindow(this);
-		dialog.setResizable(false);
+		dialog.setResizable(true);
 		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 	}

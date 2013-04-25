@@ -3,30 +3,30 @@ package screenItems;
 import game.DMToolGame;
 
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import battleMap.actors.Actor;
 
 
-public class CharacterPane extends ScreenItem{
+public class CharacterPane extends ScreenItem implements MouseListener{
 	
 	private Actor mCharacter;
-	private int mInitiative;
-	private String mName;
+	private int mInitiative, mX, mY;
 	
 	public CharacterPane(){
-		mImage = managers.ImageManager.getInstance().getImage("CharacterPane.png");
-		mName = "Empty";
+		System.out.println("mar");
+		mImage = managers.ImageManager.getInstance().getImage("CharacterPaneInactive.png");
+		mCharacter = null;
 		mInitiative = -99;
 	}
 	
-	public CharacterPane(String actor, int init){
-		mName = actor;
-		mInitiative = init;
-	}
-	
-	public CharacterPane(Actor actor){
-		mName = actor.getmName();
-		mInitiative = actor.getmInit();
+	public CharacterPane(Actor actor, int x, int y){
+		mCharacter = actor;
+		mX = x;
+		mY = y;
+		mInitiative = actor.getInit();
+		mImage = managers.ImageManager.getInstance().getImage("CharacterPane.png");
 	}
 	
 	public void setActive(boolean value){
@@ -36,14 +36,15 @@ public class CharacterPane extends ScreenItem{
 			mImage = managers.ImageManager.getInstance().getImage("CharacterPane.png");
 	}
 	
-	public void draw(Graphics2D g2d, DMToolGame window, int x, int y) {
-		g2d.drawImage(mImage, x, y, window);
-		g2d.drawString(mName, x+40, y+40);
+	public void draw(Graphics2D g2d, DMToolGame window) {
+		g2d.drawImage(mImage, mX, mY, window);
+		if(mCharacter != null){
+			g2d.drawString(mCharacter.getName(), mX+40, mY+40);
+			g2d.drawString(mCharacter.getCurrHP() + "/" + mCharacter.getMaxHP(), mX+40, mY+60);
+			g2d.drawImage(mCharacter.getImage(), mX+5, mY+5, window);
+		}
 	}
 	
-	public String getmName(){
-		return mName;
-	}
 
 	public Actor getmCharacter() {
 		return mCharacter;
@@ -55,6 +56,36 @@ public class CharacterPane extends ScreenItem{
 
 	public void setmInitiative(int mInitiative) {
 		this.mInitiative = mInitiative;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

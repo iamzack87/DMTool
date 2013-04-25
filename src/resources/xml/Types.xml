@@ -1,3 +1,32 @@
 <Types>
-
+  <Type>
+    <Name>Undead</Name>
+    <Desc>sdaada</Desc>
+    <HD>4</HD>
+    <BAB>Poor</BAB>
+    <Fort>Poor</Fort>
+    <Ref>Poor</Ref>
+    <Will>Good</Will>
+    <SkillPoints>4</SkillPoints>
+  </Type>
+  <Type>
+    <Name>Animal</Name>
+    <Desc>lions and tigers and bears oh my</Desc>
+    <HD>8</HD>
+    <BAB>Average</BAB>
+    <Fort>Good</Fort>
+    <Ref>Good</Ref>
+    <Will>Poor</Will>
+    <SkillPoints>6</SkillPoints>
+  </Type>
+  <Type>
+    <Name>Dragon</Name>
+    <Desc>dragons, duh</Desc>
+    <HD>12</HD>
+    <BAB>Good</BAB>
+    <Fort>Good</Fort>
+    <Ref>Good</Ref>
+    <Will>Good</Will>
+    <SkillPoints>6</SkillPoints>
+  </Type>
 </Types>

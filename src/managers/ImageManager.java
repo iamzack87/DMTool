@@ -32,7 +32,12 @@ public class ImageManager {
 	}
 	
 	public void loadImage(String key){
-		ImageIcon ii = new ImageIcon(this.getClass().getResource("/resources/" + key));
+		ImageIcon ii = new ImageIcon(this.getClass().getResource("/" + key));
+		mImageMap.put(key, ii.getImage());
+	}
+	
+	public void loadOutsideImage(String key){
+		ImageIcon ii = new ImageIcon(key);
 		mImageMap.put(key, ii.getImage());
 	}
 	

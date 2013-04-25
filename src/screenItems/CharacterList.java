@@ -5,6 +5,8 @@ import game.DMToolGame;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import battleMap.actors.Actor;
+
 public class CharacterList extends ScreenItem{
 	
 	private ArrayList<CharacterPane> mCharacters;
@@ -36,26 +38,30 @@ public class CharacterList extends ScreenItem{
 	}
 	
 	public void draw(Graphics2D g2d, DMToolGame window) {
-		g2d.drawImage(mImage, mX, mY, window);
-		
 		for(int i=0; i<10; i++){
 			if(i < mCharacters.size()){
-				mCharacters.get(i).draw(g2d, window, mX, mY+(i*70));
+				mCharacters.get(i).draw(g2d, window);
 			}
 			else{
-				g2d.drawImage(managers.ImageManager.getInstance().getImage("CharacterPaneInactive.png"), mX, mY+(i*70), window);
+				g2d.drawImage(managers.ImageManager.getInstance().getImage("CharacterPaneInactive.png"), mX, i*70, window);
 			}
 		}
 	}
 	
 	
-	public void AddCharacter(CharacterPane character){
-		mCharacters.add(character);
-		CharacterPane[] temp = sortByName(mCharacters); 
+	public void AddCharacter(Actor character){
+		CharacterPane newPane = new CharacterPane(character, mX, mY);
+		mCharacters.add(newPane);
+		CharacterPane[] temp = sortByName(mCharacters);	
 		
 		mCharacters.clear();
 		for(int i =0; i< temp.length; i++){
 			mCharacters.add(temp[i]);
+		}
+		
+		mY += 70;
+		if(mY == 700){
+			mY = 0;
 		}
 	}
 	
