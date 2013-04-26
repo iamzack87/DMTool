@@ -43,6 +43,7 @@ public class CharacterPane extends ScreenItem implements MouseListener{
 	public void draw(Graphics2D g2d, DMToolGame window) {
 		g2d.drawImage(mImage, mX, mY, window);
 		if(mCharacter != null){
+			mCharacter.draw(g2d, window);
 			g2d.drawString(mCharacter.getName(), mX+40, mY+40);
 			g2d.drawString(mCharacter.getCurrHP() + "/" + mCharacter.getMaxHP(), mX+40, mY+60);
 			g2d.drawImage(mCharacter.getImage(), mX+5, mY+5, window);

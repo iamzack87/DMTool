@@ -23,8 +23,10 @@ public class BattleScreen extends Screen{
 	private NodeMap mMap;
 	private CharacterList mList;
 	private Button mNextTurn, mAddCharacter;
+	private Actor mGrabbed;
 
 	public BattleScreen(DMToolGame base){
+		mGrabbed = null;
 		mBase = base;
 		mMap = new NodeMap(MAP_WIDTH, MAP_HEIGHT, NODE_DIM);
 		mList = new CharacterList();
@@ -33,6 +35,7 @@ public class BattleScreen extends Screen{
 		
 		mItems.add(mNextTurn);
 		mItems.add(mAddCharacter);
+		mItems.add(mList);
 	}
 	
 	public void draw(Graphics2D g2d, DMToolGame window) {
@@ -61,14 +64,43 @@ public class BattleScreen extends Screen{
 		  
 		ScreenItem intersectObject = objectIntersects(p);
 		if(intersectObject != null){
-			if(intersectObject != null){
-				if(intersectObject.equals(mNextTurn)){
-					NextTurn();
+			if(intersectObject.equals(mNextTurn)){
+				NextTurn();
+			}
+			else if(intersectObject.equals(mAddCharacter)){
+				openCharacterDialog(new Actor());
+			}
+			else if(intersectObject.equals(mList)){
+				CharacterPane pane = mList.getIntersect(p);		
+				if(pane != null){
+					mGrabbed = pane.getmCharacter();
+					mGrabbed.setmX(e.getX());
+					mGrabbed.setmY(e.getY());
+					mGrabbed.setOnMap(true);
 				}
-				else if(intersectObject.equals(mAddCharacter)){
-					openCharacterDialog(new Actor());
+				else{
+					System.out.println("mar");
 				}
 			}
-		}	
+			else{
+				System.out.println("shoof");
+			}
+		}
+		else{
+			System.out.println("null");
+		}
+	}
+	
+	public void MouseDragged(MouseEvent e){
+		if(mGrabbed != null){
+			mGrabbed.setmX(e.getX());
+			mGrabbed.setmY(e.getY());
+		}
+	}
+	
+	public void MouseReleased(MouseEvent e){
+		if(mGrabbed != null){
+			mGrabbed = null;
+		}
 	}
 }

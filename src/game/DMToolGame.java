@@ -49,6 +49,7 @@ public class DMToolGame extends JPanel implements ActionListener{
 		
 		addMouseListener(mListener);
 		addKeyListener(mKeyListener);
+		addMouseMotionListener(mListener);
 	}
 	
 	public void paint(Graphics g){

@@ -18,4 +18,14 @@ public class MouseListener extends MouseAdapter{
 		mCurrentScreen = mTool.getCurrentScreen();
 		mCurrentScreen.ButtonClicked(e);
 	}
+	
+	public void mouseDragged(MouseEvent e){
+		mCurrentScreen = mTool.getCurrentScreen();
+		mCurrentScreen.MouseDragged(e);
+	}
+	
+	public void mouseReleased(MouseEvent e){
+		mCurrentScreen = mTool.getCurrentScreen();
+		mCurrentScreen.MouseReleased(e);
+	}
 }

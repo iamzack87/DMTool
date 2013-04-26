@@ -34,4 +34,10 @@ public abstract class Screen{
 	
 	public void ButtonClicked(MouseEvent e){
 	}
+	
+	public void MouseDragged(MouseEvent e){
+	}
+	
+	public void MouseReleased(MouseEvent e){
+	}
 }

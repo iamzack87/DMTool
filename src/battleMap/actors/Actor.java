@@ -1,11 +1,15 @@
 package battleMap.actors;
 
+import game.DMToolGame;
+
+import java.awt.Graphics2D;
 import java.awt.Image;
 
 public class Actor {
 	private String mName;
-	private int mInit, mCurrHP, mMaxHP, mAC, mTouchAC, mFlatAC;
+	private int mInit, mCurrHP, mMaxHP, mAC, mTouchAC, mFlatAC, mX, mY;
 	private Image mImage;
+	private boolean _onMap;
 	
 	public Actor(){
 		mName = "";
@@ -22,6 +26,13 @@ public class Actor {
 		mFlatAC = flat;
 		managers.ImageManager.getInstance().loadOutsideImage(imagePath);
 		mImage = managers.ImageManager.getInstance().getImage(imagePath);
+		_onMap = false;
+	}
+	
+	public void draw(Graphics2D g2d, DMToolGame window) {
+		if(_onMap){
+			g2d.drawImage(mImage, mX, mY, window);
+		}
 	}
 	
 	public void shift(int moveX, int moveY){
@@ -91,4 +102,27 @@ public class Actor {
 		this.mImage = mImage;
 	}
 
+	public int getmX() {
+		return mX;
+	}
+
+	public void setmX(int mX) {
+		this.mX = mX;
+	}
+
+	public int getmY() {
+		return mY;
+	}
+
+	public void setmY(int mY) {
+		this.mY = mY;
+	}
+	
+	public boolean getOnMap() {
+		return _onMap;
+	}
+
+	public void setOnMap(boolean x) {
+		this._onMap = x;
+	}
 }

@@ -3,6 +3,7 @@ package battleMap.screenItems;
 import game.DMToolGame;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.util.ArrayList;
 
 import screenItems.ScreenItem;
@@ -12,11 +13,12 @@ import battleMap.actors.Actor;
 public class CharacterList extends ScreenItem{
 	
 	private ArrayList<CharacterPane> mCharacters;
-	private int mCurrentTurn;
+	private int mCurrentTurn, mLastY;
 
 	public CharacterList(){
 		mX = 720;
 		mY = 0;
+		mLastY = 0;
 		mImage = managers.ImageManager.getInstance().getImage("CharacterList.png");
 		mCharacters = new ArrayList<CharacterPane>();
 		
@@ -52,7 +54,7 @@ public class CharacterList extends ScreenItem{
 	
 	
 	public void AddCharacter(Actor character){
-		CharacterPane newPane = new CharacterPane(character, mX, mY);
+		CharacterPane newPane = new CharacterPane(character, mX, mLastY);
 		mCharacters.add(newPane);
 		CharacterPane[] temp = sortByName(mCharacters);	
 		
@@ -61,9 +63,9 @@ public class CharacterList extends ScreenItem{
 			mCharacters.add(temp[i]);
 		}
 		
-		mY += 70;
-		if(mY == 700){
-			mY = 0;
+		mLastY += 70;
+		if(mLastY == 700){
+			mLastY = 0;
 		}
 	}
 	
@@ -86,5 +88,14 @@ public class CharacterList extends ScreenItem{
 			}
 		}
 		return tempArray;
+	}
+	
+	public CharacterPane getIntersect(Point p){
+		for(int i=0; i<mCharacters.size(); i++){
+			if(mCharacters.get(i).contains(p)){
+				return mCharacters.get(i);
+			}
+		}
+		return null;
 	}
 }
