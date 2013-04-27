@@ -6,9 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import screenItems.ScreenItem;
+import battleMap.screenItems.actors.Actor;
 
-import battleMap.actors.Actor;
+import screenItems.ScreenItem;
 
 public class CharacterList extends ScreenItem{
 	
@@ -19,7 +19,11 @@ public class CharacterList extends ScreenItem{
 		mX = 720;
 		mY = 0;
 		mLastY = 0;
+		
 		mImage = managers.ImageManager.getInstance().getImage("CharacterList.png");
+		mWidth = mImage.getWidth(null);
+		mHeight = mImage.getHeight(null);
+		
 		mCharacters = new ArrayList<CharacterPane>();
 		
 		mCurrentTurn = -1;

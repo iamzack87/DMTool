@@ -3,7 +3,6 @@ package screenItems;
 import game.DMToolGame;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 
 public class Button extends ScreenItem {
 	
@@ -14,7 +13,8 @@ public class Button extends ScreenItem {
 		mX = x;
 		mY = y;
 		mImage = managers.ImageManager.getInstance().getImage("Button.png");
-		mRect = new Rectangle(x, y, mImage.getWidth(null), mImage.getHeight(null));
+		mWidth = mImage.getWidth(null);
+		mHeight = mImage.getHeight(null);
 	}
 	
 	public void draw(Graphics2D g2d, DMToolGame window) {
@@ -26,6 +26,4 @@ public class Button extends ScreenItem {
 	public String getName(){
 		return mString;
 	}
-	
-	
 }

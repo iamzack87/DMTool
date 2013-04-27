@@ -21,7 +21,7 @@ import java.util.Random;
 
 
 import battleMap.Node;
-import battleMap.actors.Actor;
+import battleMap.screenItems.actors.Actor;
 
 public class NodeMap {
 	protected Node[][] mNodeMap;

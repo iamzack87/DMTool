@@ -3,24 +3,24 @@ package battleMap.screenItems;
 import game.DMToolGame;
 
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.Point;
+
+import battleMap.screenItems.actors.Actor;
 
 import screenItems.ScreenItem;
 
-import battleMap.actors.Actor;
 
 
-public class CharacterPane extends ScreenItem implements MouseListener{
+public class CharacterPane extends ScreenItem{
 	
-	private int WIDTH = 140;
-	private int HEIGHT = 70;
 	private Actor mCharacter;
 	private int mInitiative;
 	
 	public CharacterPane(){
 		System.out.println("mar");
 		mImage = managers.ImageManager.getInstance().getImage("CharacterPaneInactive.png");
+		mWidth = mImage.getWidth(null);
+		mHeight = mImage.getHeight(null);
 		mCharacter = null;
 		mInitiative = -99;
 	}
@@ -31,6 +31,8 @@ public class CharacterPane extends ScreenItem implements MouseListener{
 		mY = y;
 		mInitiative = actor.getInit();
 		mImage = managers.ImageManager.getInstance().getImage("CharacterPane.png");
+		mWidth = mImage.getWidth(null);
+		mHeight = mImage.getHeight(null);
 	}
 	
 	public void setActive(boolean value){
@@ -49,6 +51,18 @@ public class CharacterPane extends ScreenItem implements MouseListener{
 			g2d.drawImage(mCharacter.getImage(), mX+5, mY+5, window);
 		}
 	}
+	
+	public boolean contains(Point p){
+		if(!super.contains(p)){
+			if((p.x > mCharacter.getmX() && p.x < mCharacter.getmX() + mCharacter.getWidth() && p.y > mCharacter.getmY() && p.y < mCharacter.getmX() + mCharacter.getHeight())){
+				return true;
+			}
+		}
+		else{
+			return true;
+		}
+		return false;
+	}
 
 	public Actor getmCharacter() {
 		return mCharacter;
@@ -61,36 +75,4 @@ public class CharacterPane extends ScreenItem implements MouseListener{
 	public void setmInitiative(int mInitiative) {
 		this.mInitiative = mInitiative;
 	}
-
-	public void mouseClicked(MouseEvent e) {
-		if(this.contains(e.getPoint())){
-			System.out.println(mCharacter.getName());
-		}
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

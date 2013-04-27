@@ -9,9 +9,9 @@ import java.awt.event.MouseEvent;
 import battleMap.dialogs.AddCharToBattleWindow;
 import battleMap.screenItems.CharacterList;
 import battleMap.screenItems.CharacterPane;
+import battleMap.screenItems.actors.Actor;
 
 import battleMap.NodeMap;
-import battleMap.actors.Actor;
 
 import screenItems.Button;
 import screenItems.ScreenItem;
@@ -40,7 +40,6 @@ public class BattleScreen extends Screen{
 	
 	public void draw(Graphics2D g2d, DMToolGame window) {
 		mMap.draw(g2d, window);
-		mList.draw(g2d, window);
 		super.draw(g2d, window);
 	}
 	
@@ -78,12 +77,15 @@ public class BattleScreen extends Screen{
 					mGrabbed.setmY(e.getY());
 					mGrabbed.setOnMap(true);
 				}
-				else{
-					System.out.println("mar");
-				}
+			}
+			else if(intersectObject.getClass() == Actor.class){
+				mGrabbed = (Actor) intersectObject;
+				mGrabbed.setmX(e.getX());
+				mGrabbed.setmY(e.getY());
+				mGrabbed.setOnMap(true);
 			}
 			else{
-				System.out.println("shoof");
+				System.out.println("nothing but nonNull");
 			}
 		}
 		else{
@@ -100,6 +102,9 @@ public class BattleScreen extends Screen{
 	
 	public void MouseReleased(MouseEvent e){
 		if(mGrabbed != null){
+			if(!mItems.contains(mGrabbed)){
+				mItems.add(mGrabbed);
+			}
 			mGrabbed = null;
 		}
 	}

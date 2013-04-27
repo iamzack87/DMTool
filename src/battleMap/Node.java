@@ -3,8 +3,9 @@ package battleMap;
 import java.awt.Image;
 import java.util.ArrayList;
 
-import battleMap.actors.Actor;
+
 import battleMap.battleObjects.GameObject;
+import battleMap.screenItems.actors.Actor;
 import managers.ImageManager;
 
 public class Node {
