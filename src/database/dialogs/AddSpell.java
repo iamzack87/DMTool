@@ -19,12 +19,13 @@ public class AddSpell extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private DatabaseMain mDB;
-	private JTextField mName, mLevel, mComponents, mCastTime, mEffect, mDuration, mArcaneComponents, mDivineComponents, mXPCost;
+	private JTextField mName, mLevel, mComponents, mCastTime, mEffect, mDuration, mSave, mArcaneComponents, mDivineComponents, mXPCost;
 	private JButton saveButton, cancelButton;
 	private JTextPane mDescription;
-	private JComboBox<?> mSchool, mSubschool, mRange, mSave, mSR;
+	private JComboBox<?> mSchool, mSubschool, mDescriptor, mRange, mSR;
 	private String[] mSchoolString = { "Abjuration", "Conjuration", "Divination", "Enchantment", "Evocation", "Illusion", "Necromancy", "Transmutation", "General"};
-	private String[] mSubschoolString = { "-", "Scrying"};
+	private String[] mSubschoolString = { "", "Calling", "Charm", "Compulsion", "Creation", "Figment", "Glamer", "Healing", "Pattern", "Phantasm", "Scrying", "Shadow", "Summoning", "Teleportation"};
+	private String[] mDescriptorString = { "", "Air", "Chaotic", "Cold", "Darkness", "Death", "Earth", "Electricity", "Evil", "Fear", "Fire", "Force", "Good", "Language-Dependent", "Lawful", "Light", "Mind-Affecting", "Sonic", "Water"};
 	private String[] mYesNoString = {"Yes", "No"};
 	private String[] mRangeString = {"Personal", "Touch", "Close", "Medium", "Long", "Unlimited"};
 	
@@ -44,6 +45,8 @@ public class AddSpell extends JFrame {
 		mEffect.setPreferredSize(new Dimension(80, 20));
 		mDuration = new JTextField();
 		mDuration.setPreferredSize(new Dimension(80, 20));
+		mSave = new JTextField();
+		mSave.setPreferredSize(new Dimension(80, 20));
 		mArcaneComponents = new JTextField();
 		mArcaneComponents.setPreferredSize(new Dimension(80, 20));
 		mDivineComponents = new JTextField();
@@ -54,17 +57,18 @@ public class AddSpell extends JFrame {
 		mDescription.setPreferredSize(new Dimension(200, 80));
 		
 		this.setLayout(new GridBagLayout());
+		int i=0;
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 			
 		c.gridx = 0;
-		c.gridy = 0;
+		c.gridy = i++;
 		this.add(new JLabel("Name: "), c);
 		c.gridx = 1;
 		this.add(mName, c);
 		
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = i++;
 		this.add(new JLabel("School: "), c);
 		c.gridx = 1;
 		mSchool = new JComboBox(mSchoolString);
@@ -72,7 +76,7 @@ public class AddSpell extends JFrame {
 		this.add(mSchool, c);
 		
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = i++;
 		this.add(new JLabel("Subschool: "), c);
 		c.gridx = 1;
 		mSubschool = new JComboBox(mSubschoolString);
@@ -80,25 +84,33 @@ public class AddSpell extends JFrame {
 		this.add(mSubschool, c);
 		
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = i++;
+		this.add(new JLabel("Descriptor: "), c);
+		c.gridx = 1;
+		mDescriptor = new JComboBox(mDescriptorString);
+		mDescriptor.setSelectedIndex(0);
+		this.add(mDescriptor, c);
+		
+		c.gridx = 0;
+		c.gridy = i++;
 		this.add(new JLabel("Level: "), c);
 		c.gridx = 1;
 		this.add(mLevel, c);
 		
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = i++;
 		this.add(new JLabel("Components: "), c);
 		c.gridx = 1;
 		this.add(mComponents, c);
 		
 		c.gridx = 0;
-		c.gridy = 5;
+		c.gridy = i++;
 		this.add(new JLabel("Casting Time: "), c);
 		c.gridx = 1;
 		this.add(mCastTime, c);
 		
 		c.gridx = 0;
-		c.gridy = 6;
+		c.gridy = i++;
 		this.add(new JLabel("Range: "), c);
 		c.gridx = 1;
 		mRange = new JComboBox(mRangeString);
@@ -106,27 +118,25 @@ public class AddSpell extends JFrame {
 		this.add(mRange, c);
 		
 		c.gridx = 0;
-		c.gridy = 7;
+		c.gridy = i++;
 		this.add(new JLabel("Effect: "), c);
 		c.gridx = 1;
 		this.add(mEffect, c);
 		
 		c.gridx = 0;
-		c.gridy = 8;
+		c.gridy = i++;
 		this.add(new JLabel("Duration: "), c);
 		c.gridx = 1;
 		this.add(mDuration, c);
 		
 		c.gridx = 0;
-		c.gridy = 9;
+		c.gridy = i++;
 		this.add(new JLabel("Saving Throw: "), c);
 		c.gridx = 1;
-		mSave = new JComboBox(mYesNoString);
-		mSave.setSelectedIndex(0);
 		this.add(mSave, c);
 		
 		c.gridx = 0;
-		c.gridy = 10;
+		c.gridy = i++;
 		this.add(new JLabel("Spell Resistance: "), c);
 		c.gridx = 1;
 		mSR = new JComboBox(mYesNoString);
@@ -134,17 +144,21 @@ public class AddSpell extends JFrame {
 		this.add(mSR, c);
 		
 		c.gridx = 0;
-		c.gridy = 11;
+		c.weightx = 100;
+		c.gridwidth = 2;
+		c.gridy = i++;
 		this.add(mDescription, c);
 		
 				
 		c.gridx = 0;
-		c.gridy = 12;
+		c.weightx = 50;
+		c.gridwidth = 1;
+		c.gridy = i;
 		saveButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent evt) {
-				  mDB.addSpellToDatabase(new Spell(mName.getText(), mSchool.getSelectedItem().toString(), mSubschool.getSelectedItem().toString(), mLevel.getText(), mComponents.getText(),
+				  mDB.addSpellToDatabase(new Spell(mName.getText(), mSchool.getSelectedItem().toString(), mSubschool.getSelectedItem().toString(), mDescriptor.getSelectedItem().toString(), mLevel.getText(), mComponents.getText(),
 						  mCastTime.getText(), mRange.getSelectedItem().toString(), mEffect.getText(), mDuration.getText(),
-						  mSR.getSelectedItem().toString(), mSR.getSelectedItem().toString(), "\"" + mDescription.getText() + "\""));
+						  mSave.getText(), mSR.getSelectedItem().toString(), "\"" + mDescription.getText() + "\""));
 				  try {
 					save();
 				} catch (Exception e) {
@@ -156,7 +170,7 @@ public class AddSpell extends JFrame {
 		this.add(saveButton, c);
 		
 		c.gridx = 1;
-		c.gridy = 12;
+		c.gridy = i;
 		cancelButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent evt) {
 				  close();

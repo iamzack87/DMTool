@@ -8,6 +8,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
@@ -61,13 +65,13 @@ public class DatabaseMain extends JFrame{
 	
 	private ArrayList<String[]> mTagList;
 	private String[] mTypeTags = new String[] { "Types", "Type", "Name", "Desc", "HD", "BAB", "Fort", "Ref", "Will", "SkillPoints"};
-	private String[] mSpellTags = new String[] { "Spells", "Spell", "Name", "School", "Subschool", "Level", "Components", "CastingTime", "Range", "Effect", "Duration", "SavingThrow", "SpellResistance", "Description"};
+	private String[] mSpellTags = new String[] { "Spells", "Spell", "Name", "School", "Subschool", "Descriptor", "Level", "Components", "CastingTime", "Range", "Effect", "Duration", "SavingThrow", "SpellResistance", "Description"};
 	private String[] mMonsterTags = new String[] { "Monsters", "Monster", "Name", "Type", "Size", "HD", "HP", "Init", "Speed", "AC", "Touch", "Flat", "BAB", "Grapple", "Attack", "FullAttack", "Space", "Reach", "SpecialAttacks", "SpecialQualities", "Fort", "Ref", "Will", "Skills", "Feats", "Environment", "Organization", "CR", "Alignment", "Advancement", "LA", "Description"};
 	
 	private ArrayList<String> mXMLList;
-	private String mTypeXML = "F:/Programming/Eclipse/workspace/DMTool/src/resources/xml/Types.xml";
-	private String mSpellXML = "F:/Programming/Eclipse/workspace/DMTool/src/resources/xml/Spells.xml";
-	private String mMonsterXML = "F:/Programming/Eclipse/workspace/DMTool/src/resources/xml/Monsters.xml";
+	private String mTypeXML = "./xml/Types.xml";
+	private String mSpellXML = "./xml/Spells.xml";
+	private String mMonsterXML = "./xml/Monsters.xml";
 	
 	private JMenuBar menuBar;
 	private JMenu menu, submenu;
@@ -226,7 +230,33 @@ public class DatabaseMain extends JFrame{
 			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 			
-			Document doc = docBuilder.parse (new File(file));
+			File f = new File(file);
+			Document doc = null;
+			try{
+				doc = docBuilder.parse (f);
+			}
+			catch(java.io.FileNotFoundException e ){
+				Files.createFile(Paths.get(file));
+				
+				// Create a XMLOutputFactory
+			    XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+			    // Create XMLEventWriter
+			    XMLEventWriter eventWriter = outputFactory.createXMLEventWriter(new FileOutputStream(file));
+			    // Create a EventFactory
+			    XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+			    XMLEvent end = eventFactory.createDTD("\n");
+
+			    // Create config open tag
+			    StartElement configStartElement = eventFactory.createStartElement("", "", tags[0]);
+			    eventWriter.add(configStartElement);
+			    eventWriter.add(end);
+			    
+			    eventWriter.add(eventFactory.createEndElement("", "",  tags[0]));
+				eventWriter.add(end);
+			    eventWriter.close();
+			    
+				return;
+			}
 
 	        // normalize text representation
 	        doc.getDocumentElement ().normalize ();

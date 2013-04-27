@@ -1,0 +1,17 @@
+<Spells>
+  <Spell>
+    <Name>fire</Name>
+    <School>Abjuration</School>
+    <Subschool></Subschool>
+    <Descriptor></Descriptor>
+    <Level></Level>
+    <Components></Components>
+    <CastingTime></CastingTime>
+    <Range>Personal</Range>
+    <Effect></Effect>
+    <Duration></Duration>
+    <SavingThrow></SavingThrow>
+    <SpellResistance>Yes</SpellResistance>
+    <Description>""</Description>
+  </Spell>
+</Spells>

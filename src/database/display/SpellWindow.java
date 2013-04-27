@@ -26,6 +26,8 @@ public class SpellWindow extends JFrame {
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
+		int i=0;
+		
 		c.fill = GridBagConstraints.BOTH;
 		c.ipadx = 2;
 		c.ipady = 2;
@@ -33,76 +35,91 @@ public class SpellWindow extends JFrame {
 		c.gridy = 1;
 			
 		c.gridx = 0;
-		c.gridy = 0;
+		c.gridy = i++;
 		this.add(new JLabel("Name: "), c);
 		c.gridx = 1;
 		this.add(new JLabel(mSpell.getName()), c);
 		
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = i++;
 		this.add(new JLabel("School: "), c);
 		c.gridx = 1;
 		this.add(new JLabel(mSpell.getSchool()), c);
 		
-		c.gridx = 0;
-		c.gridy = 2;
-		this.add(new JLabel("Subschool: "), c);
-		c.gridx = 1;
-		this.add(new JLabel(mSpell.getSubschool()), c);
+		if(mSpell.getSubschool() != ""){
+			c.gridx = 0;
+			c.gridy = i++;
+			this.add(new JLabel("Subschool: "), c);
+			c.gridx = 1;
+			this.add(new JLabel(mSpell.getSubschool()), c);
+		}
+		
+		if(mSpell.getDescriptor() != ""){
+			c.gridx = 0;
+			c.gridy = i++;
+			this.add(new JLabel("Descriptor: "), c);
+			c.gridx = 1;
+			this.add(new JLabel(mSpell.getDescriptor()), c);
+		}
 		
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = i++;
 		this.add(new JLabel("Level: "), c);
 		c.gridx = 1;
 		this.add(new JLabel(mSpell.getLevel()), c);
 		
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = i++;
 		this.add(new JLabel("Components: "), c);
 		c.gridx = 1;
 		this.add(new JLabel(mSpell.getComponents()), c);
 		
 		c.gridx = 0;
-		c.gridy = 5;
+		c.gridy = i++;
 		this.add(new JLabel("Casting Time: "), c);
 		c.gridx = 1;
 		this.add(new JLabel(mSpell.getCastTime()), c);
 		
 		c.gridx = 0;
-		c.gridy = 6;
+		c.gridy = i++;
 		this.add(new JLabel("Range: "), c);
 		c.gridx = 1;
 		this.add(new JLabel(mSpell.getRange()), c);
 		
 		c.gridx = 0;
-		c.gridy = 7;
+		c.gridy = i++;
 		this.add(new JLabel("Effect: "), c);
 		c.gridx = 1;
 		this.add(new JLabel(mSpell.getEffect()), c);
 		
 		c.gridx = 0;
-		c.gridy = 8;
+		c.gridy = i++;
 		this.add(new JLabel("Duration: "), c);
 		c.gridx = 1;
 		this.add(new JLabel(mSpell.getDuration()), c);
 		
 		c.gridx = 0;
-		c.gridy = 9;
+		c.gridy = i++;
 		this.add(new JLabel("Saving Throw: "), c);
 		c.gridx = 1;
 		this.add(new JLabel(mSpell.getSavingThrow() ), c);
 		
 		c.gridx = 0;
-		c.gridy = 10;
+		c.gridy = i++;
 		this.add(new JLabel("Spell Resistance: "), c);
 		c.gridx = 1;
 		this.add(new JLabel(mSpell.getSR()), c);
 		
 		c.gridx = 0;
-		c.gridy = 11;
+		c.gridy = i++;
 		c.weightx = 2;
 		c.weighty = 2;
-		mDescription.setText(mSpell.getDesc());
+		if(mSpell.getDesc() != "\"\""){
+			mDescription.setText(mSpell.getDesc());
+		}
+		else{
+			mDescription.setText("");
+		}
 		mDescription.setEditable(false);
 		this.add(mDescription, c);
 		

@@ -4,19 +4,20 @@ import java.util.ArrayList;
 
 public class Spell implements DatabaseObject{
 	
-	private String mName, mSchool, mSubschool, mLevel, mComponents, mCastTime, mRange, mEffect, mDuration, mSavingThrow, mSR, mDesc;
+	private String mName, mSchool, mSubschool, mDescriptor, mLevel, mComponents, mCastTime, mRange, mEffect, mDuration, mSavingThrow, mSR, mDesc;
 	
 	public Spell(){
 		
 	}
 	
-	public Spell(String mName, String mSchool, String mSubschool,
+	public Spell(String mName, String mSchool, String mSubschool, String mDescriptor,
 			String mLevel, String mComponents, String mCastTime, String mRange,
 			String mEffect, String mDuration, String mSavingThrow, String mSR,
 			String mDesc) {
 		this.mName = mName;
 		this.mSchool = mSchool;
 		this.mSubschool = mSubschool;
+		this.mDescriptor = mDescriptor;
 		this.mLevel = mLevel;
 		this.mComponents = mComponents;
 		this.mCastTime = mCastTime;
@@ -29,18 +30,20 @@ public class Spell implements DatabaseObject{
 	}
 
 	public Spell(ArrayList<String> readTags) {
-		this.mName = readTags.get(0);
-		this.mSchool = readTags.get(1);
-		this.mSubschool = readTags.get(2);
-		this.mLevel = readTags.get(3);
-		this.mComponents = readTags.get(4);
-		this.mCastTime = readTags.get(5);
-		this.mRange = readTags.get(6);
-		this.mEffect = readTags.get(7);
-		this.mDuration = readTags.get(8);
-		this.mSavingThrow = readTags.get(9);
-		this.mSR = readTags.get(10);
-		this.mDesc = readTags.get(11);
+		int i=0;
+		this.mName = readTags.get(i++);
+		this.mSchool = readTags.get(i++);
+		this.mSubschool = readTags.get(i++);
+		this.mDescriptor = readTags.get(i++);
+		this.mLevel = readTags.get(i++);
+		this.mComponents = readTags.get(i++);
+		this.mCastTime = readTags.get(i++);
+		this.mRange = readTags.get(i++);
+		this.mEffect = readTags.get(i++);
+		this.mDuration = readTags.get(i++);
+		this.mSavingThrow = readTags.get(i++);
+		this.mSR = readTags.get(i++);
+		this.mDesc = readTags.get(i++);
 	}
 	
 	public ArrayList<String> getStringArray(){
@@ -48,6 +51,7 @@ public class Spell implements DatabaseObject{
 		temp.add(mName);
 		temp.add(mSchool);
 		temp.add(mSubschool);
+		temp.add(mDescriptor);
 		temp.add(mLevel);
 		temp.add(mComponents);
 		temp.add(mCastTime);
@@ -71,6 +75,10 @@ public class Spell implements DatabaseObject{
 
 	public String getSubschool() {
 		return mSubschool;
+	}
+	
+	public String getDescriptor() {
+		return mDescriptor;
 	}
 
 	public String getLevel() {
